@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class KochLine : KochGenerator {
 
+    [Range(0,1)]
+    public float lerpAmount;
+    public float generateMultiplier = 1;
+    Vector3[] lerpPositions;
     LineRenderer lineRenderer;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = true;
         lineRenderer.useWorldSpace = false;
@@ -15,9 +19,45 @@ public class KochLine : KochGenerator {
         lineRenderer.positionCount = positions.Length;
         lineRenderer.SetPositions(positions);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    private void Update()
+    {
+        if (generationCount != 0)
+        {
+            for (int i = 0; i < positions.Length; i++)
+            {
+                lerpPositions[i] = Vector3.Lerp(positions[i], targetPositions[i], lerpAmount);
+            }
+            
+
+            if (isUsingBezierCurves)
+            {
+                bezierPositions = BezierCurve(lerpPositions, bezierVertexCount);
+                lineRenderer.positionCount = bezierPositions.Length;
+                lineRenderer.SetPositions(bezierPositions);
+            }
+            else
+            {
+                lineRenderer.positionCount = lerpPositions.Length;
+                lineRenderer.SetPositions(lerpPositions);
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.O))
+        {
+            KochGenerate(targetPositions, true, generateMultiplier);
+            lerpPositions = new Vector3[positions.Length];
+            lineRenderer.positionCount = positions.Length;
+            lineRenderer.SetPositions(positions);
+            lerpAmount = 0;
+        }
+        else 
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            KochGenerate(targetPositions, false, generateMultiplier);
+            lerpPositions = new Vector3[positions.Length];
+            lineRenderer.positionCount = positions.Length;
+            lineRenderer.SetPositions(positions);
+            lerpAmount = 0;
+        }
+    }
 }

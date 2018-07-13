@@ -36,21 +36,27 @@ public class KochGenerator : MonoBehaviour {
 
     protected int generationCount;
     protected int initiatorPointAmount;
+    
     protected Vector3[] positions;
     protected Vector3[] targetPositions;
+    protected Vector3[] bezierPositions;
     protected Keyframe[] keys;
 
+    [Range(8,24)]
+    [SerializeField] protected int bezierVertexCount = 8;
+    [SerializeField]protected bool isUsingBezierCurves;
 
+    
     private float initialRotation;
     private Vector3[] initiatorPoints;
     private Vector3 rotateVector;
     private Vector3 rotateAxis;
     private List<LineSegment> lineSegments;
 
+
     private void Awake()
     {
         GetInitiatorPoints();
-        //assign stuff
         positions = new Vector3[initiatorPointAmount + 1];
         targetPositions = new Vector3[initiatorPointAmount + 1];
         keys = generator.keys;
@@ -64,22 +70,23 @@ public class KochGenerator : MonoBehaviour {
         }
 
         positions[initiatorPointAmount] = positions[0];
+        targetPositions = positions;
     }
 
-    protected void KochGeneration(Vector3[] positions, bool outwards, float generatorMultiplier)
+    protected void KochGenerate(Vector3[] _positions, bool outwards, float generatorMultiplier)
     {
         lineSegments.Clear();
-        for (int i = 0; i < positions.Length; i++)
+        for (int i = 0; i < _positions.Length; i++)
         {
             LineSegment line = new LineSegment();
-            line.StartPosition = positions[i];
-            if (i == positions.Length - 1)
+            line.StartPosition = _positions[i];
+            if (i == _positions.Length - 1)
             {
-                line.EndPosition = positions[0];
+                line.EndPosition = _positions[0];
             }
             else
             {
-                line.EndPosition = positions[i + 1];
+                line.EndPosition = _positions[i + 1];
             }
             line.Direction = (line.EndPosition - line.StartPosition).normalized;
             line.Length = Vector3.Distance(line.EndPosition, line.StartPosition);
@@ -89,18 +96,40 @@ public class KochGenerator : MonoBehaviour {
         // add the line segment points to a point array.
         List<Vector3> newPos = new List<Vector3>();
         List<Vector3> targetPos = new List<Vector3>();
+
         for (int i = 0; i < lineSegments.Count; i++)
         {
             newPos.Add(lineSegments[i].StartPosition);
             targetPos.Add(lineSegments[i].StartPosition);
 
-            for (int j = 0; j < keys.Length; j++)
+            for (int j = 1; j < keys.Length - 1; j++)
             {
                 float moveAmount = lineSegments[i].Length * keys[j].time;
-                float heighAmount = (lineSegments[i].Length * keys[j].value) * generatorMultiplier;
+                float heightAmount = (lineSegments[i].Length * keys[j].value) * generatorMultiplier;
                 Vector3 movePos = lineSegments[i].StartPosition + (lineSegments[i].Direction * moveAmount);
+                Vector3 dir;
+                if (outwards)
+                {
+                    dir = Quaternion.AngleAxis(-90, rotateAxis) * lineSegments[i].Direction;
+                }
+                else
+                {
+                    dir = Quaternion.AngleAxis(90, rotateAxis) * lineSegments[i].Direction;
+                }
+                newPos.Add(movePos);
+                targetPos.Add(movePos + (dir * heightAmount));
             }
         }
+        newPos.Add(lineSegments[0].StartPosition);
+        targetPos.Add(lineSegments[0].StartPosition);
+
+        positions = new Vector3[newPos.Count];
+        positions = newPos.ToArray();
+
+        targetPositions = new Vector3[targetPos.Count];
+        targetPositions = targetPos.ToArray();
+        bezierPositions = BezierCurve(targetPositions, bezierVertexCount);
+        generationCount++;
     }
 
     private void OnDrawGizmos()
@@ -129,6 +158,25 @@ public class KochGenerator : MonoBehaviour {
                 Gizmos.DrawLine(initiatorPoints[i], initiatorPoints[0]);
             }
         }
+    }
+
+    protected Vector3[] BezierCurve(Vector3[] points, int vertexCount)
+    {
+        var pointList = new List<Vector3>();
+        for (int i = 0; i < points.Length; i += 2)
+        {
+            if (i + 2 <= points.Length - 1)
+            {
+                for (float ratio = 0f; ratio <= 1f; ratio += 1.0f / vertexCount)
+                {
+                    var tangentLineVertex1 = Vector3.Lerp(points[i], points[i + 1], ratio);
+                    var tangentLineVertex2 = Vector3.Lerp(points[i + 1], points[i + 2], ratio);
+                    var bezierPoint = Vector3.Lerp(tangentLineVertex1, tangentLineVertex2, ratio);
+                    pointList.Add(bezierPoint);
+                }
+            }
+        }
+        return pointList.ToArray();
     }
 
     private void GetInitiatorPoints()
