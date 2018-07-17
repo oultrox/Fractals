@@ -18,7 +18,8 @@ public class KochLine : KochGenerator {
         lineRenderer.loop = true;
         lineRenderer.positionCount = positions.Length;
         lineRenderer.SetPositions(positions);
-	}
+        lerpPositions = new Vector3[positions.Length];
+    }
 
     private void Update()
     {
@@ -42,22 +43,8 @@ public class KochLine : KochGenerator {
                 lineRenderer.SetPositions(lerpPositions);
             }
         }
-        if (Input.GetKeyUp(KeyCode.O))
-        {
-            KochGenerate(targetPositions, true, generateMultiplier);
-            lerpPositions = new Vector3[positions.Length];
-            lineRenderer.positionCount = positions.Length;
-            lineRenderer.SetPositions(positions);
-            lerpAmount = 0;
-        }
-        else 
-        if (Input.GetKeyUp(KeyCode.I))
-        {
-            KochGenerate(targetPositions, false, generateMultiplier);
-            lerpPositions = new Vector3[positions.Length];
-            lineRenderer.positionCount = positions.Length;
-            lineRenderer.SetPositions(positions);
-            lerpAmount = 0;
-        }
+
+
+
     }
 }

@@ -29,10 +29,20 @@ public class KochGenerator : MonoBehaviour {
         public float Length { get; set; }
     }
 
+    [System.Serializable]
+    public struct StartGen
+    {
+        public bool outwards;
+        public float scale;
+
+    }
+
+    [SerializeField] private StartGen[] startGens;
     [SerializeField] protected Axis axis = new Axis();
     [SerializeField] protected Initiator initiatior = new Initiator();
     [SerializeField] protected float initiatorSize;
     [SerializeField] protected AnimationCurve generator;
+
 
     protected int generationCount;
     protected int initiatorPointAmount;
@@ -71,6 +81,11 @@ public class KochGenerator : MonoBehaviour {
 
         positions[initiatorPointAmount] = positions[0];
         targetPositions = positions;
+
+        for (int i = 0; i < startGens.Length; i++)
+        {
+            KochGenerate(targetPositions, startGens[i].outwards, startGens[i].scale);
+        }
     }
 
     protected void KochGenerate(Vector3[] _positions, bool outwards, float generatorMultiplier)

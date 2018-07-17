@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b31b6cff42d73d45bdfd6c4669e4e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGens: []
   axis: 0
   initiatior: 0
   initiatorSize: 0
@@ -271,6 +272,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1123931b99e7c4a4d964f34abeaf5d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGens:
+  - outwards: 0
+    scale: 1
   axis: 0
   initiatior: 5
   initiatorSize: 3
