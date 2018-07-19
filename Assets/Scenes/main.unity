@@ -112,6 +112,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &274183000 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1272896419425496, guid: 0101680f51f443b45b07a9fca2454ba1,
+    type: 2}
+  m_PrefabInternal: {fileID: 929498640}
 --- !u!1 &373125982
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,57 +263,210 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4750273944028308, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159422847425570, guid: d5f51b2e2b0a1ab4db73f02b15566b90, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4750273944028308, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+    - target: {fileID: 4159422847425570, guid: d5f51b2e2b0a1ab4db73f02b15566b90, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4750273944028308, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+    - target: {fileID: 4159422847425570, guid: d5f51b2e2b0a1ab4db73f02b15566b90, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4750273944028308, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+    - target: {fileID: 4159422847425570, guid: d5f51b2e2b0a1ab4db73f02b15566b90, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4750273944028308, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+    - target: {fileID: 4159422847425570, guid: d5f51b2e2b0a1ab4db73f02b15566b90, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4750273944028308, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+    - target: {fileID: 4159422847425570, guid: d5f51b2e2b0a1ab4db73f02b15566b90, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 4750273944028308, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+    - target: {fileID: 4159422847425570, guid: d5f51b2e2b0a1ab4db73f02b15566b90, type: 2}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 4750273944028308, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+    - target: {fileID: 4159422847425570, guid: d5f51b2e2b0a1ab4db73f02b15566b90, type: 2}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114375308874872318, guid: 0101680f51f443b45b07a9fca2454ba1,
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
         type: 2}
-      propertyPath: initiatorSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114375308874872318, guid: 0101680f51f443b45b07a9fca2454ba1,
-        type: 2}
-      propertyPath: initiatior
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4750273944028308, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 114375308874872318, guid: 0101680f51f443b45b07a9fca2454ba1,
+      propertyPath: trailPrefab
+      value: 
+      objectReference: {fileID: 274183000}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
         type: 2}
       propertyPath: audioPeer
       value: 
       objectReference: {fileID: 373125983}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: initiatior
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: startGens.Array.data[1].scale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: startGens.Array.data[1].outwards
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: startGens.Array.data[0].outwards
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: speedMinMax.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: speedMinMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: isUsingBezierCurves
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[1].time
+      value: 0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[1].inSlope
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[1].outSlope
+      value: 1.4705883
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[2].time
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[2].value
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[3].time
+      value: 0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[3].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[3].inSlope
+      value: -1.5624998
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[3].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[4].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[1].tangentMode
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[2].inSlope
+      value: 1.4705883
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[2].outSlope
+      value: -1.5624998
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[2].tangentMode
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380068523297040, guid: d5f51b2e2b0a1ab4db73f02b15566b90,
+        type: 2}
+      propertyPath: generator.m_Curve.Array.data[3].tangentMode
+      value: 69
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d5f51b2e2b0a1ab4db73f02b15566b90, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &929498640
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4138474495948886, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138474495948886, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138474495948886, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138474495948886, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138474495948886, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138474495948886, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138474495948886, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138474495948886, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0101680f51f443b45b07a9fca2454ba1, type: 2}
   m_IsPrefabParent: 0
