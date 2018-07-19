@@ -29,16 +29,24 @@ public class KochTrail : KochGenerator {
     [Header("Audio")]
     [SerializeField] private AudioPeer audioPeer;
     public int[] audioBand;
-    public Vector2 speedMinMax;
+    public Vector2 speedMinMax, widthMinMax, trailTimeMinMax;
+    public float colorMultiplier;
+
+
+    
 
 
     //Private variales
     private float lerpPosSpeed;
     private float distanceSnap;
+    private Color startColor, endColor;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start ()
+    {
+        startColor = new Color(0, 0, 0, 0);
+        endColor = new Color(0, 0, 0, 1);
         trails = new List<TrailObject>();
         for (int i = 0; i < initiatorPointAmount; i++)
         {
@@ -85,10 +93,9 @@ public class KochTrail : KochGenerator {
 
     private void Movement()
     {
-        lerpPosSpeed = Mathf.Lerp(speedMinMax.x, speedMinMax.y, 100f);
+        lerpPosSpeed = Mathf.Lerp(speedMinMax.x, speedMinMax.y, audioPeer.amplitude);
         for (int i = 0; i < trails.Count; i++)
         {
-            trails[i].GO.transform.localPosition = Vector3.MoveTowards(trails[i].GO.transform.localPosition, trails[i].TargetPosition, Time.deltaTime * lerpPosSpeed);
             distanceSnap = Vector3.Distance(trails[i].GO.transform.localPosition, trails[i].TargetPosition);
 
             if (distanceSnap < 0.05f)
@@ -119,12 +126,29 @@ public class KochTrail : KochGenerator {
                     trails[i].TargetPosition = targetPositions[trails[i].CurrentTargetNum];
                 }
             }
+            trails[i].GO.transform.localPosition = Vector3.MoveTowards(trails[i].GO.transform.localPosition, trails[i].TargetPosition, Time.deltaTime * lerpPosSpeed);
         }
     }
 	
+    void AudioBehaviour()
+    {
+        for (int i = 0; i < initiatorPointAmount; i++)
+        {
+            Color colorLerp = Color.Lerp(startColor, trails[i].EmissionColor * colorMultiplier, audioBand[i]);
+            trails[i].Trail.material.SetColor("EmissionColor", colorLerp);
+            colorLerp = Color.Lerp(startColor, endColor, audioBand[i]);
+            trails[i].Trail.material.SetColor("EmissionColor", colorLerp);
+
+            float widthLerp = Mathf.Lerp(widthMinMax.x, widthMinMax.y, audioPeer.audiobandBuffer[audioBand[i]]);
+            trails[i].Trail.widthMultiplier = 
+        }
+    }
+
 	// Update is called once per frame
 	void Update ()
     {
         Movement();
-	}
+        AudioBehaviour();
+
+    }
 }

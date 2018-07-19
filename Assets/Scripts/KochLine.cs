@@ -10,7 +10,7 @@ public class KochLine : KochGenerator {
 
     [Header("Audio")]
     public AudioPeer audioPeer;
-    public int[] audioBand;
+    public int audioBand;
 
     Vector3[] lerpPositions;
     LineRenderer lineRenderer;
@@ -33,28 +33,27 @@ public class KochLine : KochGenerator {
     {
         if (generationCount != 0)
         {
-            int count = 0;
-            for (int i = 0; i < initiatorPointAmount; i++)
-            {
-                lerpAudio[i] = audioPeer.audiobandBuffer[audioBand[i]];
-                Debug.Log((positions.Length - 1) / initiatorPointAmount);
-                for (int j = 0; j < (positions.Length - 1) / initiatorPointAmount; j++)
-                {
-                    lerpPositions[count] = Vector3.Lerp(positions[count], targetPositions[count], lerpAudio[i]);
-                    count++;
-                }
-            }
-
-            lerpPositions[count] = Vector3.Lerp(positions[count], targetPositions[count], lerpAudio[initiatorPointAmount-1]);
-
-            //for (int i = 0; i < positions.Length; i++)
+            //Multiple lerps por cada lado en frecuencia: usar esto.
+            //int count = 0;
+            //for (int i = 0; i < initiatorPointAmount; i++)
             //{
-            //    //CHECKING because of an AABB transform error.
-            //    if (audioPeer.audiobandBuffer[audioBand] <= 1 && audioPeer.audiobandBuffer[audioBand] > 0)
+            //    lerpAudio[i] = audioPeer.audiobandBuffer[audioBand[i]];
+            //    for (int j = 0; j < (positions.Length - 1) / initiatorPointAmount; j++)
             //    {
-            //        lerpPositions[i] = Vector3.Lerp(positions[i], targetPositions[i], audioPeer.audiobandBuffer[audioBand]);
+            //        lerpPositions[count] = Vector3.Lerp(positions[count], targetPositions[count], lerpAudio[i]);
+            //        count++;
             //    }
             //}
+            //lerpPositions[count] = Vector3.Lerp(positions[count], targetPositions[count], lerpAudio[initiatorPointAmount-1]);
+
+            for (int i = 0; i < positions.Length; i++)
+            {
+                //CHECKING because of an AABB transform error.
+                if (audioPeer.audiobandBuffer[audioBand] <= 1 && audioPeer.audiobandBuffer[audioBand] > 0)
+                {
+                    lerpPositions[i] = Vector3.Lerp(positions[i], targetPositions[i], audioPeer.audiobandBuffer[audioBand]);
+                }
+            }
 
             if (isUsingBezierCurves)
             {

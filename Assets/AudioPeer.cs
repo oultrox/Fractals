@@ -16,7 +16,8 @@ public class AudioPeer : MonoBehaviour {
     public float[] audioband = new float[8];
     public float[] audiobandBuffer = new float[8];
 
-
+    public float amplitude, amplitudeBuffer;
+    private float amplitudeMax;
     // Use this for initialization
     void Start ()
     {
@@ -30,6 +31,7 @@ public class AudioPeer : MonoBehaviour {
         MakeFrequencyBands();
         BandBuffer();
         CreateAudioBands();
+        GetAmplitude();
     }
 
     private void CreateAudioBands()
@@ -66,6 +68,23 @@ public class AudioPeer : MonoBehaviour {
     private void GetSpectrumAudioSource()
     {
         audioSource.GetSpectrumData(samples,0,FFTWindow.Blackman);
+    }
+
+    private void GetAmplitude()
+    {
+        float ampSum = 0;
+        float ampSumBuffer = 0;
+        for (int i = 0; i < audioband.Length; i++)
+        {
+            ampSum += audioband[i];
+            ampSumBuffer += audiobandBuffer[i];
+        }
+        if (ampSum > amplitudeMax)
+        {
+            amplitudeMax = ampSum;
+        }
+        amplitude = ampSum / amplitudeMax;
+        amplitudeBuffer = ampSumBuffer / amplitudeMax;
     }
 
     private void MakeFrequencyBands()
