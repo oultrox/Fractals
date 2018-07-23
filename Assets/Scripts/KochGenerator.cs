@@ -88,20 +88,20 @@ public class KochGenerator : MonoBehaviour {
         }
     }
 
-    protected void KochGenerate(Vector3[] _positions, bool outwards, float generatorMultiplier)
+    protected void KochGenerate(Vector3[] _positionsAux, bool outwards, float generatorMultiplier)
     {
         lineSegments.Clear();
-        for (int i = 0; i < _positions.Length; i++)
+        for (int i = 0; i < _positionsAux.Length - 1; i++)
         {
             LineSegment line = new LineSegment();
-            line.StartPosition = _positions[i];
-            if (i == _positions.Length - 1)
+            line.StartPosition = _positionsAux[i];
+            if (i == _positionsAux.Length - 1)
             {
-                line.EndPosition = _positions[0];
+                line.EndPosition = _positionsAux[0];
             }
             else
             {
-                line.EndPosition = _positions[i + 1];
+                line.EndPosition = _positionsAux[i + 1];
             }
             line.Direction = (line.EndPosition - line.StartPosition).normalized;
             line.Length = Vector3.Distance(line.EndPosition, line.StartPosition);
