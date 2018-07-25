@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class KochLine : KochGenerator {
 
-    //[Range(0,1)]
-    //public float lerpAmount;
-    public float generateMultiplier = 1;
-
     [Header("Audio")]
-    public AudioPeer audioPeer;
-    public int audioBand;
+    [SerializeField] private AudioPeer audioPeer;
+    [SerializeField] private int audioBand;
 
-    Vector3[] lerpPositions;
-    LineRenderer lineRenderer;
-    private float[] lerpAudio;
+    [Header("Color")]
+    [SerializeField] private Material material;
+    [SerializeField] private Color color;
+    [SerializeField] private int audioBandMaterial;
+    [SerializeField] private float emissionMultiplier = 4;
 
+    private Vector3[] lerpPositions;
+    private LineRenderer lineRenderer;
+    private Material materialInstance;
+    //private float[] lerpAudio;
 
     // Use this for initialization
     void Start () {
-        lerpAudio = new float[initiatorPointAmount];
+        //lerpAudio = new float[initiatorPointAmount];
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = true;
         lineRenderer.useWorldSpace = false;
@@ -27,12 +29,16 @@ public class KochLine : KochGenerator {
         lineRenderer.positionCount = positions.Length;
         lineRenderer.SetPositions(positions);
         lerpPositions = new Vector3[positions.Length];
+        //apply material
+        materialInstance = new Material(material);
+        lineRenderer.material = materialInstance;
     }
 
     private void Update()
     {
+        materialInstance.SetColor("_EmissionColor", color * audioPeer.audiobandBuffer[audioBandMaterial] * emissionMultiplier);
         if (generationCount != 0)
-        {
+        { 
             //Multiple lerps por cada lado en frecuencia: usar esto.
             //int count = 0;
             //for (int i = 0; i < initiatorPointAmount; i++)

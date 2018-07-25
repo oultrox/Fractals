@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Fractals-Trails/Koch-Trails.unity
+    guid: f511d331464a43f4f927c0dad86b6e2b

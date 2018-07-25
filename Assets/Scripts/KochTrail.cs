@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class KochTrail : KochGenerator {
 
-
-    public class TrailObject
+    private class TrailObject
     {
         public GameObject GO { get; set; }
         public TrailRenderer Trail { get; set; }
@@ -14,29 +13,22 @@ public class KochTrail : KochGenerator {
         public Color EmissionColor { get; set; }
     }
 
-    [HideInInspector]
-    public List<TrailObject> trails;
-
     [Header("Trail Properties")]
-    public GameObject trailPrefab;
-    public AnimationCurve trailWidthCurve;
+    [SerializeField] private GameObject trailPrefab;
+    [SerializeField] private AnimationCurve trailWidthCurve;
 
     [Range(0, 8)]
-    public int trailEndCapVertices;
-    public Material trailMaterial;
-    public Gradient trailColor;
+    [SerializeField] private int trailEndCapVertices;
+    [SerializeField] private Material trailMaterial;
+    [SerializeField] private Gradient trailColor;
 
     [Header("Audio")]
     [SerializeField] private AudioPeer audioPeer;
-    public int[] audioBand;
-    public Vector2 speedMinMax, widthMinMax, trailTimeMinMax;
-    public float colorMultiplier;
+    [SerializeField] private int[] audioBand;
+    [SerializeField] private Vector2 speedMinMax = Vector2.zero, widthMinMax = Vector2.zero, trailTimeMinMax = Vector2.zero;
+    [SerializeField] private float colorMultiplier;
 
-
-    
-
-
-    //Private variales
+    private List<TrailObject> trails;
     private float lerpPosSpeed;
     private float distanceSnap;
     private Color startColor, endColor;
@@ -48,6 +40,18 @@ public class KochTrail : KochGenerator {
         startColor = new Color(0, 0, 0, 0);
         endColor = new Color(0, 0, 0, 1);
         trails = new List<TrailObject>();
+        InitializeTrails();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Movement();
+        AudioBehaviour();
+    }
+
+    private void InitializeTrails()
+    {
         for (int i = 0; i < initiatorPointAmount; i++)
         {
             GameObject trailInstance = (GameObject)Instantiate(trailPrefab, transform.position, Quaternion.identity, this.transform);
@@ -70,7 +74,7 @@ public class KochTrail : KochGenerator {
                     trailObjectsInstance.CurrentTargetNum = (i * step) + 1;
                     trailObjectsInstance.TargetPosition = bezierPositions[trailObjectsInstance.CurrentTargetNum];
 
-                } 
+                }
                 else
                 {
                     step = positions.Length / initiatorPointAmount;
@@ -89,7 +93,7 @@ public class KochTrail : KochGenerator {
             trailObjectsInstance.GO.transform.localPosition = instantiatePosition;
             trails.Add(trailObjectsInstance);
         }
-	}
+    }
 
     private void Movement()
     {
@@ -154,13 +158,5 @@ public class KochTrail : KochGenerator {
             float timeLerp = Mathf.Lerp(trailTimeMinMax.x, trailTimeMinMax.y, audioPeer.audiobandBuffer[audioBand[i]]);
             trails[i].Trail.time = timeLerp;
         }
-    }
-
-	// Update is called once per frame
-	void Update ()
-    {
-        Movement();
-        AudioBehaviour();
-
     }
 }
